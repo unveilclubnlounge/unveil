@@ -100,6 +100,7 @@ export default function MenuPage() {
   return (
     <main className="min-h-screen pb-40">
       <header className="p-6 text-center border-b border-ink/10">
+        <img src="/logo.png" alt="Unveil" className="w-16 mx-auto mb-2" />
         <h1 className="text-3xl font-display text-clay">Menu</h1>
         <p className="text-ink/60 text-sm mt-1">Tap items to add to your order</p>
       </header>

@@ -18,12 +18,20 @@ export default function LoginForm({ onSubmit, label }) {
   };
 
   return (
-    <main className="min-h-screen flex items-center justify-center p-8">
+    <main
+      className="min-h-screen flex items-center justify-center p-8 bg-ink"
+      style={{
+        backgroundImage: "linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)), url(/hero.png)",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
       <form
         onSubmit={handleSubmit}
-        className="bg-white rounded-xl p-6 shadow-sm w-full max-w-sm flex flex-col gap-3"
+        className="bg-white/95 rounded-xl p-6 shadow-lg w-full max-w-sm flex flex-col gap-3"
       >
-        <h1 className="text-xl font-display text-clay mb-2">{label}</h1>
+        <img src="/logo.png" alt="Unveil" className="w-20 mx-auto mb-1" />
+        <h1 className="text-xl font-display text-clay text-center mb-2">{label}</h1>
         <input
           type="email"
           placeholder="Email"

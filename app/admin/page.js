@@ -91,8 +91,15 @@ export default function AdminPage() {
 
   return (
     <main className="min-h-screen p-4 max-w-2xl mx-auto">
-      <div className="flex items-center justify-between mb-4">
-        <h1 className="text-2xl font-display text-clay">Admin</h1>
+      <div className="flex items-center justify-between mb-4 no-print">
+
+        <div className="flex items-center gap-2">
+
+          <img src="/logo.png" alt="Unveil" className="w-8" />
+
+          <h1 className="text-2xl font-display text-clay">Admin</h1>
+
+        </div>
         <button onClick={signOut} className="text-sm text-ink/50 underline">
           Sign out
         </button>
