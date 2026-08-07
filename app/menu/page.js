@@ -101,7 +101,10 @@ export default function MenuPage() {
   return (
     <main className="min-h-screen pb-40 bg-ink">
       <header className="p-6 text-center border-b border-gold/20">
-        <img src="/logo.png" alt="Unveil Club 'n' Bar" className="w-24 mx-auto mb-3" />
+        <img src="/logo.png" alt="Unveil Club 'n' Bar" className="w-40 mx-auto mb-3" />
+        <p className="text-gold/80 text-sm tracking-wide mb-2">
+          Good Music... Great People.... Unforgettable Experience....
+        </p>
         <h1 className="text-3xl font-display text-gold tracking-wide">Menu</h1>
         <p className="text-cream/50 text-sm mt-1">Tap items to add to your order</p>
       </header>

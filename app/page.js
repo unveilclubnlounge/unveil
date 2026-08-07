@@ -11,10 +11,8 @@ export default function Home() {
         <div className="unveil-divider w-64 mx-auto my-3">
           <span className="dot" />
         </div>
-        <p className="text-cream/60 max-w-sm">
-          Customers should scan the QR code straight to{" "}
-          <code className="bg-gold/10 text-gold px-1 rounded">/menu</code>.
-          Staff and admin use the links below.
+        <p className="text-cream/60 max-w-sm tracking-wide">
+          Good Music... Great People.... Unforgettable Experience....
         </p>
       </div>
       <div className="flex gap-4 mt-2 flex-wrap justify-center">
