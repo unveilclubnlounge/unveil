@@ -5,7 +5,7 @@ import { supabase } from "../../lib/supabaseClient";
 
 export default function MenuPage() {
   const [items, setItems] = useState([]);
-  const [cart, setCart] = useState({}); // { itemId: qty }
+  const [cart, setCart] = useState({});
   const [tableNumber, setTableNumber] = useState("");
   const [customerName, setCustomerName] = useState("");
   const [placing, setPlacing] = useState(false);
@@ -82,14 +82,15 @@ export default function MenuPage() {
 
   if (confirmed) {
     return (
-      <main className="min-h-screen flex flex-col items-center justify-center p-8 text-center gap-3">
-        <h1 className="text-2xl font-display text-moss">Order sent!</h1>
-        <p className="text-ink/70">
-          Table {tableNumber} — your order is on its way to the kitchen.
+      <main className="min-h-screen flex flex-col items-center justify-center p-8 text-center gap-3 bg-ink">
+        <img src="/logo.png" alt="Unveil" className="w-20 mb-2" />
+        <h1 className="text-2xl font-display text-gold">Order sent!</h1>
+        <p className="text-cream/60">
+          Table {tableNumber} — your order is on its way to the bar.
         </p>
         <button
           onClick={() => setConfirmed(null)}
-          className="mt-4 px-4 py-2 bg-clay text-cream rounded-lg"
+          className="mt-4 px-5 py-2.5 bg-gold text-ink rounded-lg font-medium hover:bg-gold-light transition"
         >
           Order more
         </button>
@@ -98,22 +99,22 @@ export default function MenuPage() {
   }
 
   return (
-    <main className="min-h-screen pb-40">
-      <header className="p-6 text-center border-b border-ink/10">
-        <img src="/logo.png" alt="Unveil" className="w-16 mx-auto mb-2" />
-        <h1 className="text-3xl font-display text-clay">Menu</h1>
-        <p className="text-ink/60 text-sm mt-1">Tap items to add to your order</p>
+    <main className="min-h-screen pb-40 bg-ink">
+      <header className="p-6 text-center border-b border-gold/20">
+        <img src="/logo.png" alt="Unveil Club 'n' Bar" className="w-24 mx-auto mb-3" />
+        <h1 className="text-3xl font-display text-gold tracking-wide">Menu</h1>
+        <p className="text-cream/50 text-sm mt-1">Tap items to add to your order</p>
       </header>
 
       <div className="p-4 max-w-xl mx-auto flex flex-col gap-2">
         <input
-          className="border border-ink/20 rounded-lg px-3 py-2 bg-white"
+          className="bg-charcoal border border-gold/30 text-cream placeholder-cream/40 rounded-lg px-3 py-2 focus:outline-none focus:border-gold"
           placeholder="Table number *"
           value={tableNumber}
           onChange={(e) => setTableNumber(e.target.value)}
         />
         <input
-          className="border border-ink/20 rounded-lg px-3 py-2 bg-white"
+          className="bg-charcoal border border-gold/30 text-cream placeholder-cream/40 rounded-lg px-3 py-2 focus:outline-none focus:border-gold"
           placeholder="Your name (optional)"
           value={customerName}
           onChange={(e) => setCustomerName(e.target.value)}
@@ -121,22 +122,28 @@ export default function MenuPage() {
       </div>
 
       {categories.map((cat) => (
-        <section key={cat} className="max-w-xl mx-auto px-4 mt-6">
-          <h2 className="text-lg font-display text-moss mb-2">{cat}</h2>
+        <section key={cat} className="max-w-xl mx-auto px-4 mt-8">
+          <div className="unveil-divider mb-3">
+            <span className="dot" />
+            <h2 className="text-lg font-display text-gold tracking-wide whitespace-nowrap px-1">
+              {cat}
+            </h2>
+            <span className="dot" />
+          </div>
           <div className="flex flex-col gap-2">
             {items
               .filter((i) => i.category === cat)
               .map((item) => (
                 <div
                   key={item.id}
-                  className="flex items-center justify-between bg-white rounded-xl p-3 shadow-sm"
+                  className="flex items-center justify-between bg-charcoal border border-gold/15 rounded-xl p-3"
                 >
                   <div>
-                    <p className="font-medium">{item.name}</p>
+                    <p className="font-medium text-cream">{item.name}</p>
                     {item.description && (
-                      <p className="text-xs text-ink/50">{item.description}</p>
+                      <p className="text-xs text-cream/45">{item.description}</p>
                     )}
-                    <p className="text-sm text-clay mt-1">
+                    <p className="text-sm text-gold mt-1">
                       ₦{Number(item.price).toLocaleString()}
                     </p>
                   </div>
@@ -145,16 +152,16 @@ export default function MenuPage() {
                       <>
                         <button
                           onClick={() => removeFromCart(item.id)}
-                          className="w-7 h-7 rounded-full bg-ink/10"
+                          className="w-7 h-7 rounded-full bg-cream/10 text-cream"
                         >
                           −
                         </button>
-                        <span className="w-4 text-center">{cart[item.id]}</span>
+                        <span className="w-4 text-center text-cream">{cart[item.id]}</span>
                       </>
                     ) : null}
                     <button
                       onClick={() => addToCart(item.id)}
-                      className="w-7 h-7 rounded-full bg-clay text-cream"
+                      className="w-7 h-7 rounded-full bg-gold text-ink font-medium hover:bg-gold-light transition"
                     >
                       +
                     </button>
@@ -166,20 +173,20 @@ export default function MenuPage() {
       ))}
 
       {cartLines.length > 0 && (
-        <div className="fixed bottom-0 left-0 right-0 bg-ink text-cream p-4">
+        <div className="fixed bottom-0 left-0 right-0 bg-charcoal border-t border-gold/30 p-4">
           <div className="max-w-xl mx-auto flex items-center justify-between">
             <div>
-              <p className="text-sm text-cream/70">
+              <p className="text-sm text-cream/50">
                 {cartLines.reduce((n, l) => n + l.qty, 0)} item(s)
               </p>
-              <p className="font-display text-lg">
+              <p className="font-display text-lg text-gold">
                 ₦{total.toLocaleString()}
               </p>
             </div>
             <button
               disabled={placing}
               onClick={placeOrder}
-              className="px-5 py-2 bg-gold text-ink rounded-lg font-medium disabled:opacity-50"
+              className="px-5 py-2.5 bg-wine-bright text-cream rounded-lg font-medium disabled:opacity-50 hover:bg-wine transition"
             >
               {placing ? "Placing..." : "Place order"}
             </button>

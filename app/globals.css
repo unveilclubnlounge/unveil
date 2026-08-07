@@ -2,6 +2,28 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Signature divider: gold hairline with a small red mark at center,
+   echoing the "LOUNGE • CLUB" mark in the logo */
+.unveil-divider {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.unveil-divider::before,
+.unveil-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #c9a44c, transparent);
+}
+.unveil-divider .dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 9999px;
+  background: #b3282d;
+  box-shadow: 0 0 6px rgba(179, 40, 45, 0.8);
+}
+
 @media print {
   body * {
     visibility: hidden;

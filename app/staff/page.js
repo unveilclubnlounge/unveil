@@ -11,7 +11,7 @@ export default function StaffPage() {
   const [orders, setOrders] = useState([]);
   const [itemsByOrder, setItemsByOrder] = useState({});
   const [settings, setSettings] = useState(null);
-  const [printing, setPrinting] = useState(null); // order id being printed
+  const [printing, setPrinting] = useState(null);
 
   useEffect(() => {
     if (!user) return;
@@ -96,45 +96,51 @@ export default function StaffPage() {
     }, 150);
   };
 
-  if (loading) return <p className="p-8">Loading...</p>;
+  const statusColor = (status) => {
+    if (status === "new") return "bg-wine-bright/20 text-wine-bright";
+    if (status === "paid") return "bg-gold/20 text-gold";
+    return "bg-cream/10 text-cream/70";
+  };
+
+  if (loading) return <p className="p-8 bg-ink text-cream min-h-screen">Loading...</p>;
   if (!user) return <LoginForm label="Staff login" onSubmit={signIn} />;
 
   const printingOrder = orders.find((o) => o.id === printing);
 
   return (
-    <main className="min-h-screen p-4 max-w-2xl mx-auto">
+    <main className="min-h-screen p-4 max-w-2xl mx-auto bg-ink">
       <div className="flex items-center justify-between mb-4 no-print">
         <div className="flex items-center gap-2">
-          <img src="/logo.png" alt="Unveil" className="w-8" />
-          <h1 className="text-2xl font-display text-clay">Live Orders</h1>
+          <img src="/logo.png" alt="Unveil" className="w-9" />
+          <h1 className="text-2xl font-display text-gold tracking-wide">Live Orders</h1>
         </div>
-        <button onClick={signOut} className="text-sm text-ink/50 underline">
+        <button onClick={signOut} className="text-sm text-cream/40 underline hover:text-cream/70">
           Sign out
         </button>
       </div>
 
       <div className="flex flex-col gap-3 no-print">
         {orders.length === 0 && (
-          <p className="text-ink/50">No orders yet — they'll appear here in real time.</p>
+          <p className="text-cream/40">No orders yet — they'll appear here in real time.</p>
         )}
         {orders.map((order) => (
-          <div key={order.id} className="bg-white rounded-xl p-4 shadow-sm">
+          <div key={order.id} className="bg-charcoal border border-gold/15 rounded-xl p-4">
             <div className="flex justify-between items-start">
               <div>
-                <p className="font-medium">
+                <p className="font-medium text-cream">
                   Table {order.table_number}{" "}
                   {order.customer_name && `— ${order.customer_name}`}
                 </p>
-                <p className="text-xs text-ink/50">
+                <p className="text-xs text-cream/40">
                   {new Date(order.created_at).toLocaleTimeString()}
                 </p>
               </div>
-              <span className="text-xs px-2 py-1 rounded-full bg-moss/10 text-moss capitalize">
+              <span className={`text-xs px-2 py-1 rounded-full capitalize ${statusColor(order.status)}`}>
                 {order.status}
               </span>
             </div>
 
-            <ul className="text-sm mt-2 text-ink/80">
+            <ul className="text-sm mt-2 text-cream/70">
               {(itemsByOrder[order.id] || []).map((it) => (
                 <li key={it.id}>
                   {it.quantity}x {it.name}
@@ -142,21 +148,21 @@ export default function StaffPage() {
               ))}
             </ul>
 
-            <p className="font-display text-clay mt-2">
+            <p className="font-display text-gold mt-2">
               ₦{Number(order.total).toLocaleString()}
             </p>
 
             <div className="flex gap-2 mt-3 flex-wrap">
               <button
                 onClick={() => handlePrint(order)}
-                className="px-3 py-1.5 bg-ink text-cream rounded-lg text-sm"
+                className="px-3 py-1.5 bg-gold text-ink rounded-lg text-sm font-medium hover:bg-gold-light transition"
               >
                 {order.printed ? "Reprint" : "Print receipt"}
               </button>
               <select
                 value={order.status}
                 onChange={(e) => updateStatus(order.id, e.target.value)}
-                className="px-2 py-1.5 border border-ink/20 rounded-lg text-sm"
+                className="px-2 py-1.5 bg-ink border border-gold/30 text-cream rounded-lg text-sm"
               >
                 <option value="new">New</option>
                 <option value="preparing">Preparing</option>

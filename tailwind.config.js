@@ -4,11 +4,13 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        ink: "#1c1a17",
-        cream: "#f6f1e7",
-        clay: "#8a4b32",
-        moss: "#3c4a3a",
-        gold: "#b4893f",
+        ink: "#0d0b09",
+        charcoal: "#18130f",
+        cream: "#f3ead9",
+        gold: "#c9a44c",
+        "gold-light": "#e9c874",
+        wine: "#7a1120",
+        "wine-bright": "#b3282d",
       },
       fontFamily: {
         display: ["Georgia", "serif"],
