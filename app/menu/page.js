@@ -5,6 +5,7 @@ import { supabase } from "../../lib/supabaseClient";
 
 export default function MenuPage() {
   const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [cart, setCart] = useState({});
   const [tableNumber, setTableNumber] = useState("");
   const [customerName, setCustomerName] = useState("");
@@ -20,8 +21,22 @@ export default function MenuPage() {
         .order("category", { ascending: true })
         .order("sort_order", { ascending: true });
       setItems(data || []);
+      setLoading(false);
     };
     load();
+
+    // Live-refresh if admin adds, edits, hides, or removes an item while
+    // a customer already has this page open.
+    const channel = supabase
+      .channel("menu-live")
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "menu_items" },
+        () => load()
+      )
+      .subscribe();
+
+    return () => supabase.removeChannel(channel);
   }, []);
 
   const categories = [...new Set(items.map((i) => i.category))];
@@ -124,7 +139,25 @@ export default function MenuPage() {
         />
       </div>
 
-      {categories.map((cat) => (
+      {loading && (
+        <div className="max-w-xl mx-auto px-4 mt-8 flex flex-col gap-6 animate-pulse">
+          {[0, 1].map((section) => (
+            <div key={section}>
+              <div className="h-4 w-28 bg-gold/20 rounded mb-3 mx-auto" />
+              <div className="flex flex-col gap-2">
+                {[0, 1, 2].map((row) => (
+                  <div
+                    key={row}
+                    className="bg-charcoal border border-gold/15 rounded-xl p-3 h-16"
+                  />
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {!loading && categories.map((cat) => (
         <section key={cat} className="max-w-xl mx-auto px-4 mt-8">
           <div className="unveil-divider mb-3">
             <span className="dot" />
