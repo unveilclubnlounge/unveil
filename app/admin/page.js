@@ -202,11 +202,17 @@ export default function AdminPage() {
             value={settings.account_name || ""}
             onChange={(e) => setSettings({ ...settings, account_name: e.target.value })}
           />
+        <input
+            className={inputClass}
+            placeholder="Restaurant name"
+            value={settings.restaurant_name || ""}
+            onChange={(e) => setSettings({ ...settings, restaurant_name: e.target.value })}
+          />
           <input
             className={inputClass}
-            placeholder="Account number"
-            value={settings.account_number || ""}
-            onChange={(e) => setSettings({ ...settings, account_number: e.target.value })}
+            placeholder="Business address"
+            value={settings.address || ""}
+            onChange={(e) => setSettings({ ...settings, address: e.target.value })}
           />
           <input
             className={inputClass}

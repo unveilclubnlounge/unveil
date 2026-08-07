@@ -113,8 +113,19 @@ export default function MenuPage() {
     );
   }
 
-  return (
-    <main className="min-h-screen pb-40 bg-ink">
+ return (
+    <main
+      className="min-h-screen pb-40 bg-ink relative"
+      style={{
+        backgroundImage: "url(/logo.png)",
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center 120px",
+        backgroundSize: "min(420px, 80%)",
+        backgroundAttachment: "fixed",
+      }}
+    >
+      <div className="absolute inset-0 bg-ink/90 pointer-events-none" />
+      <div className="relative">
       <header className="p-6 text-center border-b border-gold/20">
         <img src="/logo.png" alt="Unveil Club 'n' Bar" className="w-40 mx-auto mb-3" />
         <p className="text-gold/80 text-sm tracking-wide mb-2">
@@ -227,8 +238,9 @@ export default function MenuPage() {
               {placing ? "Placing..." : "Place order"}
             </button>
           </div>
-        </div>
+       </div>
       )}
+      </div>
     </main>
   );
 }

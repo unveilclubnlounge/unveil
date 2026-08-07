@@ -7,8 +7,9 @@ export default function Receipt({ order, items, settings }) {
 
   return (
     <div id="receipt" className="bg-white p-4 w-[300px] mx-auto text-ink font-mono text-sm">
-      <div className="text-center mb-2">
+     <div className="text-center mb-2">
         <p className="font-bold text-base">{settings?.restaurant_name || "Lounge"}</p>
+        <p className="text-xs">{settings?.address || "Nos 8 Agbo Akpmolafe, Unity Estate, Abule Odun, Lagos, Nigeria."}</p>
         <p className="text-xs">{createdAt}</p>
       </div>
       <hr className="border-dashed border-ink my-2" />
